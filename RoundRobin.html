@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Torneo Round-Robin (Grafo Dirigido)</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f9; }
+        .contenedor { background: white; padding: 20px; border-radius: 8px; max-width: 600px; margin: auto; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
+        th { background-color: #007bff; color: white; }
+        button { background-color: #28a745; color: white; border: none; padding: 10px 15px; cursor: pointer; border-radius: 5px; }
+        button:hover { background-color: #218838; }
+    </style>
+</head>
+<body>
+
+<div class="contenedor">
+    <h2>=== REGISTRO DE PARTICIPANTES ===</h2>
+    <p>Haz clic en el botón para correr la lógica del torneo (las matrices) en JavaScript.</p>
+    <button onclick="ejecutarTorneo()">Calcular Torneo con Matriz M_R</button>
+
+    <!-- Aquí es donde imprimiremos el equivalente a tus cout << -->
+    <div id="pantalla_resultados"></div>
+</div>
+
+<script>
+function ejecutarTorneo() {
+    // 1. VARIABLES (Igual a tu const int N = 10, pero con 4 para prueba rápida)
+    const N = 4; 
+    let nombres = ["Pablo", "Juan", "Carlos", "Diego"]; // Equivale a string nombres[N];
+
+    // En JS, las matrices bidimensionales se inician así (Equivale a int MR[N][N] = {0}):
+    let MR = Array.from({length: N}, () => Array(N).fill(0));
+    let MR_Cuadrado = Array.from({length: N}, () => Array(N).fill(0));
+    let vic_directas = Array(N).fill(0);
+    let vic_indirectas = Array(N).fill(0);
+    let puntaje_total = Array(N).fill(0);
+
+    // 2. INGRESO DE ENFRENTAMIENTOS
+    // Para no poner prompts (que equivaldrían a los 45 cin >> de tu C++), 
+    // cargaremos la matriz manualmente como si el torneo ya hubiera pasado.
+    MR = [
+        [0, 1, 0, 1], // Pablo le ganó a Juan y a Diego
+        [0, 0, 1, 0], // Juan le ganó a Carlos
+        [1, 0, 0, 1], // Carlos le ganó a Pablo y a Diego
+        [0, 1, 0, 0]  // Diego le ganó a Juan
+    ];
+
+    // 3. MULTIPLICACIÓN DE MATRICES (MR * MR = MR_Cuadrado)
+    // Fíjate que el triple ciclo for es IDÉNTICO a tu C++
+    for (let i = 0; i < N; i++) {
+        for (let j = 0; j < N; j++) {
+            for (let k = 0; k < N; k++) {
+                MR_Cuadrado[i][j] += MR[i][k] * MR[k][j]; 
+            }
+        }
+    }
+
+    // 4. SUMAR FILAS PARA VICTORIAS DIRECTAS, INDIRECTAS Y PUNTAJE TOTAL
+    // Idéntico a tu C++
+    for (let i = 0; i < N; i++) {
+        for (let j = 0; j < N; j++) {
+            vic_directas[i] += MR[i][j];
+            vic_indirectas[i] += MR_Cuadrado[i][j];
+        }
+        puntaje_total[i] = vic_directas[i] + vic_indirectas[i];
+    }
+
+    // 5. ENCONTRAR AL GANADOR Y ARMAR LA TABLA (Equivalente a tus cout)
+    let max_puntaje = -1;
+    let indice_ganador = -1;
+    
+    // Armamos la tabla HTML usando una variable de texto
+    let htmlSalida = "<h3>=== TABLA FINAL DE RESULTADOS ===</h3>";
+    htmlSalida += "<table><tr><th>Nombre</th><th>Directas</th><th>Indirectas</th><th>Puntaje Total</th></tr>";
+
+    for (let i = 0; i < N; i++) {
+        htmlSalida += `<tr>
+                          <td>${nombres[i]}</td>
+                          <td>${vic_directas[i]}</td>
+                          <td>${vic_indirectas[i]}</td>
+                          <td>${puntaje_total[i]}</td>
+                       </tr>`;
+
+        if (puntaje_total[i] > max_puntaje) {
+            max_puntaje = puntaje_total[i];
+            indice_ganador = i;
+        }
+    }
+    htmlSalida += "</table>";
+
+    // 6. ANUNCIO DEL GANADOR
+    htmlSalida += `<h3 style="color: red; text-align: center;">¡EL GANADOR ES: ${nombres[indice_ganador]}!</h3>`;
+
+    // 7. MOSTRAR EN LA PÁGINA
+    // Esto toma el texto HTML que armamos y lo inyecta en el div de arriba
+    document.getElementById("pantalla_resultados").innerHTML = htmlSalida;
+}
+</script>
+
+</body>
+</html>~
