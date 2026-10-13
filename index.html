@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Torneo Round-Robin Interactivo</title>
+    <!-- Aquí vinculamos el archivo CSS externo -->
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<div class="contenedor">
+    
+    <!-- FASE 1: CANTIDAD DE PARTICIPANTES -->
+    <div id="fase1">
+        <h2>Paso 1: Participantes</h2>
+        <p>¿Cuántos jugadores participarán en el torneo?</p>
+        <input type="number" id="cantidad_N" value="8" min="2" max="20">
+        <button onclick="irFase2()">Siguiente: Ingresar Nombres</button>
+    </div>
+
+    <!-- FASE 2: INGRESAR NOMBRES UNO POR UNO -->
+    <div id="fase2" class="oculto">
+        <h2>Paso 2: Nombres</h2>
+        <p>Ingresa el nombre de cada participante:</p>
+        <div id="inputs_nombres"></div>
+        <button onclick="irFase3()">Siguiente: Enfrentamientos</button>
+    </div>
+
+    <!-- FASE 3: ¿QUIÉN LE GANÓ A QUIÉN? -->
+    <div id="fase3" class="oculto">
+        <h2>Paso 3: Resultados de Partidos</h2>
+        <p>Selecciona 1 si el primer jugador ganó, o 0 si perdió.</p>
+        <div id="inputs_partidos"></div>
+        <button onclick="calcularTorneo()">Calcular Ganador</button>
+    </div>
+
+    <!-- FASE 4: RESULTADOS -->
+    <div id="fase4" class="oculto">
+        <div id="tabla_resultados"></div>
+        <button onclick="location.reload()" style="background-color: #007bff;">Reiniciar Torneo</button>
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
