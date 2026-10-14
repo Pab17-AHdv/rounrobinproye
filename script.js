@@ -48,6 +48,7 @@ function calcularTorneo() {
     let vic_directas = Array(N).fill(0);
     let vic_indirectas = Array(N).fill(0);
     let puntaje_total = Array(N).fill(0);
+    let efectividad = Array(N).fill(0);
 
     for (let i = 0; i < N; i++) {
         for (let j = 0; j < N; j++) {
@@ -75,23 +76,28 @@ function calcularTorneo() {
             vic_indirectas[i] += MR_Cuadrado[i][j];
         }
         puntaje_total[i] = vic_directas[i] + vic_indirectas[i];
+        
+        // AQUÍ CALCULAMOS LA ESTADÍSTICA: Porcentaje de efectividad individual
+        efectividad[i] = ((vic_directas[i] / (N - 1)) * 100).toFixed(1);
     }
 
     let max_puntaje = -1;
     let indice_ganador = -1;
     
-    let htmlSalida = "<h2>=== TABLA FINAL DE RESULTADOS ===</h2>";
-    htmlSalida += "<table><tr><th>Nombre</th><th>Directas</th><th>Indirectas</th><th>Puntaje Total</th></tr>";
+    // AQUÍ MANTENEMOS LA TABLA Y LE AGREGAMOS LA COLUMNA DE ESTADÍSTICA (EFECTIVIDAD)
+    let htmlSalida = "<h2>=== TABLA DE RESULTADOS Y ESTADÍSTICAS ===</h2>";
+    htmlSalida += "<table><tr><th>Nombre</th><th>Vic. Directas</th><th>Vic. Indirectas ($M_R^2$)</th><th>Efectividad</th><th>Puntaje Total</th></tr>";
 
     for (let i = 0; i < N; i++) {
         htmlSalida += `<tr>
-                          <td>${nombres[i]}</td>
+                          <td><b>${nombres[i]}</b></td>
                           <td>${vic_directas[i]}</td>
                           <td>${vic_indirectas[i]}</td>
+                          <td>${efectividad[i]}%</td>
                           <td><strong>${puntaje_total[i]}</strong></td>
                        </tr>`;
 
-                if (puntaje_total[i] > max_puntaje) {
+        if (puntaje_total[i] > max_puntaje) {
             max_puntaje = puntaje_total[i];
             indice_ganador = i;
         }
