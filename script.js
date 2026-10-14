@@ -77,14 +77,14 @@ function calcularTorneo() {
         }
         puntaje_total[i] = vic_directas[i] + vic_indirectas[i];
         
-        // AQUÍ CALCULAMOS LA ESTADÍSTICA: Porcentaje de efectividad individual
+        // SE CALCULA LA ESTADÍSTICA: Porcentaje de efectividad individual
         efectividad[i] = ((vic_directas[i] / (N - 1)) * 100).toFixed(1);
     }
 
     let max_puntaje = -1;
     let indice_ganador = -1;
     
-    // AQUÍ MANTENEMOS LA TABLA Y LE AGREGAMOS LA COLUMNA DE ESTADÍSTICA (EFECTIVIDAD)
+    // AQUÍ MANTENEMOS LA TABLA Y SE LE AGREGA LA COLUMNA DE EFECTIVIDAD
     let htmlSalida = "<h2>=== TABLA DE RESULTADOS Y ESTADÍSTICAS ===</h2>";
     htmlSalida += "<table><tr><th>Nombre</th><th>Vic. Directas</th><th>Vic. Indirectas ($M_R^2$)</th><th>Efectividad</th><th>Puntaje Total</th></tr>";
 
