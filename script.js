@@ -86,7 +86,7 @@ function calcularTorneo() {
     
     // AQUÍ MANTENEMOS LA TABLA Y SE LE AGREGA LA COLUMNA DE EFECTIVIDAD
     let htmlSalida = "<h2>=== TABLA DE RESULTADOS Y ESTADÍSTICAS ===</h2>";
-    htmlSalida += "<table><tr><th>Nombre</th><th>Vic. Directas</th><th>Vic. Indirectas ($M_R^2$)</th><th>Efectividad</th><th>Puntaje Total</th></tr>";
+    htmlSalida += "<table><tr><th>Nombre</th><th>Vic. Directas</th><th>Vic. Indirectas</th><th>Efectividad</th><th>Puntaje Total</th></tr>";
 
     for (let i = 0; i < N; i++) {
         htmlSalida += `<tr>
