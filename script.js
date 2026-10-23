@@ -102,13 +102,13 @@ function calcularTorneo() {
 
     // 5. Construir el HTML visual: Podio Top 3 primero
     let htmlSalida = `<div style="text-align: center; margin-bottom: 25px;">
-        <h2 style="color: #333; margin-bottom: 5px;">🏆 PODIO DEL TORNEO (TOP 3)</h2>
-        <p style="color: #666; font-size: 14px;">Basado en el puntaje total de desempate (Matemática Discreta)</p>
+        <h2 style="color: #333; margin-bottom: 5px;">PODIO DEL TORNEO</h2>
+        <p style="color: #666; font-size: 14px;">Basado en el puntaje total de desempate</p>
     </div>`;
 
     htmlSalida += `<div style="display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; flex-wrap: wrap;">`;
     
-    let medallas = ["🥇 1er Lugar", "🥈 2do Lugar", "🥉 3er Lugar"];
+    let medallas = ["1er Lugar", "2do Lugar", "3er Lugar"];
     let coloresPodio = ["#ffd700", "#c0c0c0", "#cd7f32"];
 
     for (let i = 0; i < Math.min(3, N); i++) {
@@ -124,17 +124,16 @@ function calcularTorneo() {
 
     // 6. Título y Tabla completa de estadísticas generales
     htmlSalida += `<div style="margin-top: 30px;">
-        <h3 style="border-bottom: 2px solid #007bff; padding-bottom: 8px; color: #007bff;">📊 Estadísticas Generales y Rendimiento</h3>
-        <p style="font-size: 13px; color: #555;">Detalle de victorias directas ($M_R$), victorias indirectas por fuerza de rivales ($M_R^2$), efectividad y puntaje final.</p>
+        <h3 style="border-bottom: 2px solid #007bff; padding-bottom: 8px; color: #007bff; text-align: center;"> STATS</h3>1|q
     </div>`;
 
     htmlSalida += `<table>
         <tr>
             <th>Posición</th>
             <th>Participante</th>
-            <th>Vic. Directas ($M_R$)</th>
-            <th>Vic. Indirectas ($M_R^2$)</th>
-            <th>Efectividad (%)</th>
+            <th>Vic. Directas</th>
+            <th>Vic. Indirectas</th>
+            <th>Efectividad</th>
             <th>Puntaje Total</th>
         </tr>`;
 
@@ -150,7 +149,7 @@ function calcularTorneo() {
     }
     htmlSalida += "</table>";
 
-    // Inyectar todo en el contenedor que ya tenías preparado
+    // Inyectar todo en el contenedor de resultados y cambiar de fase
     document.getElementById("tabla_resultados").innerHTML = htmlSalida;
     document.getElementById("fase3").classList.add("oculto");
     document.getElementById("fase4").classList.remove("oculto");
