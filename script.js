@@ -47,9 +47,10 @@ function calcularTorneo() {
     let MR_Cuadrado = Array.from({length: N}, () => Array(N).fill(0));
     let vic_directas = Array(N).fill(0);
     let vic_indirectas = Array(N).fill(0);
+    let efectividad = [];
     let puntaje_total = Array(N).fill(0);
-    let efectividad = Array(N).fill(0);
 
+    // 1. Llenado de matriz MR (Antisimetría)
     for (let i = 0; i < N; i++) {
         for (let j = 0; j < N; j++) {
             if (i === j) {
@@ -62,6 +63,7 @@ function calcularTorneo() {
         }
     }
 
+    // 2. Multiplicación de Matrices Discretas (MR * MR = MR_Cuadrado / Caminos de longitud 2)
     for (let i = 0; i < N; i++) {
         for (let j = 0; j < N; j++) {
             for (let k = 0; k < N; k++) {
@@ -70,6 +72,7 @@ function calcularTorneo() {
         }
     }
 
+    // 3. Sumar filas y calcular estadísticas
     for (let i = 0; i < N; i++) {
         for (let j = 0; j < N; j++) {
             vic_directas[i] += MR[i][j];
@@ -77,34 +80,77 @@ function calcularTorneo() {
         }
         puntaje_total[i] = vic_directas[i] + vic_indirectas[i];
         
-        // SE CALCULA LA ESTADÍSTICA: Porcentaje de efectividad individual
-        efectividad[i] = ((vic_directas[i] / (N - 1)) * 100).toFixed(1);
+        // Cálculo de efectividad porcentual
+        let efec = N > 1 ? ((vic_directas[i] / (N - 1)) * 100).toFixed(1) : 0;
+        efectividad.push(efec);
     }
 
-    let max_puntaje = -1;
-    let indice_ganador = -1;
+    // 4. Crear un arreglo de objetos para ordenar del mejor al peor fácilmente
+    let participantes = [];
+    for (let i = 0; i < N; i++) {
+        participantes.push({
+            nombre: nombres[i],
+            directas: vic_directas[i],
+            indirectas: vic_indirectas[i],
+            efectividad: efectividad[i],
+            total: puntaje_total[i]
+        });
+    }
+
+    // Ordenar de mayor a menor según el Puntaje Total (Desempate matemático)
+    participantes.sort((a, b) => b.total - a.total);
+
+    // 5. Construir el HTML visual: Podio Top 3 primero
+    let htmlSalida = `<div style="text-align: center; margin-bottom: 25px;">
+        <h2 style="color: #333; margin-bottom: 5px;">🏆 PODIO DEL TORNEO (TOP 3)</h2>
+        <p style="color: #666; font-size: 14px;">Basado en el puntaje total de desempate (Matemática Discreta)</p>
+    </div>`;
+
+    htmlSalida += `<div style="display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; flex-wrap: wrap;">`;
     
-    // AQUÍ MANTENEMOS LA TABLA Y SE LE AGREGA LA COLUMNA DE EFECTIVIDAD
-    let htmlSalida = "<h2>=== TABLA DE RESULTADOS Y ESTADÍSTICAS ===</h2>";
-    htmlSalida += "<table><tr><th>Nombre</th><th>Vic. Directas</th><th>Vic. Indirectas</th><th>Efectividad</th><th>Puntaje Total</th></tr>";
+    let medallas = ["🥇 1er Lugar", "🥈 2do Lugar", "🥉 3er Lugar"];
+    let coloresPodio = ["#ffd700", "#c0c0c0", "#cd7f32"];
+
+    for (let i = 0; i < Math.min(3, N); i++) {
+        htmlSalida += `
+            <div style="background: ${coloresPodio[i]}20; border: 2px solid ${coloresPodio[i]}; border-radius: 10px; padding: 15px 20px; width: 200px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                <h3 style="margin: 0 0 10px 0; color: #333;">${medallas[i]}</h3>
+                <p style="font-size: 18px; font-weight: bold; margin: 5px 0;">${participantes[i].nombre}</p>
+                <p style="font-size: 14px; color: #555; margin: 0;">Puntaje: <strong>${participantes[i].total}</strong></p>
+            </div>
+        `;
+    }
+    htmlSalida += `</div>`;
+
+    // 6. Título y Tabla completa de estadísticas generales
+    htmlSalida += `<div style="margin-top: 30px;">
+        <h3 style="border-bottom: 2px solid #007bff; padding-bottom: 8px; color: #007bff;">📊 Estadísticas Generales y Rendimiento</h3>
+        <p style="font-size: 13px; color: #555;">Detalle de victorias directas ($M_R$), victorias indirectas por fuerza de rivales ($M_R^2$), efectividad y puntaje final.</p>
+    </div>`;
+
+    htmlSalida += `<table>
+        <tr>
+            <th>Posición</th>
+            <th>Participante</th>
+            <th>Vic. Directas ($M_R$)</th>
+            <th>Vic. Indirectas ($M_R^2$)</th>
+            <th>Efectividad (%)</th>
+            <th>Puntaje Total</th>
+        </tr>`;
 
     for (let i = 0; i < N; i++) {
         htmlSalida += `<tr>
-                          <td><b>${nombres[i]}</b></td>
-                          <td>${vic_directas[i]}</td>
-                          <td>${vic_indirectas[i]}</td>
-                          <td>${efectividad[i]}%</td>
-                          <td><strong>${puntaje_total[i]}</strong></td>
-                       </tr>`;
-
-        if (puntaje_total[i] > max_puntaje) {
-            max_puntaje = puntaje_total[i];
-            indice_ganador = i;
-        }
+            <td><strong>#${i + 1}</strong></td>
+            <td><b>${participantes[i].nombre}</b></td>
+            <td>${participantes[i].directas}</td>
+            <td>${participantes[i].indirectas}</td>
+            <td>${participantes[i].efectividad}%</td>
+            <td><strong>${participantes[i].total}</strong></td>
+        </tr>`;
     }
     htmlSalida += "</table>";
-    htmlSalida += `<h2 style="color: red; text-align: center;">¡EL GANADOR ES: ${nombres[indice_ganador]}!</h2>`;
 
+    // Inyectar todo en el contenedor que ya tenías preparado
     document.getElementById("tabla_resultados").innerHTML = htmlSalida;
     document.getElementById("fase3").classList.add("oculto");
     document.getElementById("fase4").classList.remove("oculto");
