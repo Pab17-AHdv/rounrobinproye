@@ -1,12 +1,6 @@
-// Import the functions you need from the SDKs you need
-// Usa los enlaces directos del CDN de Firebase (versión 10.8.0)
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyCL8G2y5VByGpnPw2AU44s8wpvCPPF-XY8",
   authDomain: "troundrobin-1dce3.firebaseapp.com",
@@ -17,9 +11,8 @@ const firebaseConfig = {
   measurementId: "G-6J5D5PLY5E"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const db = getAnalytics(app);
+const db = getFirestore(app);
 
 let N = 8;
 let nombres = [];
