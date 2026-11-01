@@ -10,10 +10,18 @@
 <div class="contenedor">
     
     <!-- FASE 1: CANTIDAD DE PARTICIPANTES -->
+    <!-- FASE 1: CANTIDAD DE PARTICIPANTES -->
     <div id="fase1">
         <h2>Paso 1: Participantes</h2>
         <p>¿Cuántos jugadores participarán en el torneo?</p>
-        <input type="number" id="cantidad_N" value="8" min="2" max="20">
+        <!-- Actualizamos min a 4, max a 16 y agregamos el evento oninput -->
+        <input type="number" id="cantidad_N" value="8" min="4" max="16" oninput="actualizarModo()">
+        
+        <!-- Etiqueta dinámica para el modo -->
+        <div id="info_modo" style="margin: 8px 0; font-size: 14px; color: #555;">
+            <strong>Modo Estándar:</strong> Configuración recomendada por defecto.
+        </div>
+
         <button onclick="irFase2()">Siguiente: Ingresar Nombres</button>
     </div>
 
