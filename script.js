@@ -208,7 +208,7 @@ async function calcularTorneo() {
     document.getElementById("tabla_resultados").innerHTML = htmlSalida;
     document.getElementById("fase3").classList.add("oculto");
     document.getElementById("fase4").classList.remove("oculto");
-}
+
 // 4. Armamos el objeto con la información limpia que se va a guardar
     let datosFinalesNube = {
         fecha: new Date().toLocaleDateString(),
@@ -227,3 +227,4 @@ async function calcularTorneo() {
 
     // ... (Aquí continúa el código que ya tienes para inyectar la tabla en el HTML)
     document.getElementById("tabla_resultados").innerHTML = htmlSalida;
+}
