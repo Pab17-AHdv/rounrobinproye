@@ -213,8 +213,8 @@ async function calcularTorneo() {
     let datosFinalesNube = {
         fecha: new Date().toLocaleDateString(),
         totalParticipantes: N,
-        campeon: nombres[indice_ganador],
-        detallesJugadores: resultadosTorneo // (tu lista con los nombres, puntos y efectividad)
+        campeon: participantes[0].nombre,
+        detallesJugadores: participantes // (tu lista con los nombres, puntos y efectividad)
     };
 
     // 5. Ordenamos a Firebase que guarde el documento en una colección llamada "torneos"
@@ -227,4 +227,6 @@ async function calcularTorneo() {
 
     // ... (Aquí continúa el código que ya tienes para inyectar la tabla en el HTML)
     document.getElementById("tabla_resultados").innerHTML = htmlSalida;
+    document.getElementById("fase3").classList.add("oculto");
+    document.getElementById("fase4").classList.remove("oculto");
 }
