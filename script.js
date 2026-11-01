@@ -19,7 +19,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const db = getAnalytics(app);
 
 let N = 8;
 let nombres = [];
@@ -231,3 +231,8 @@ async function calcularTorneo() {
     document.getElementById("fase3").classList.add("oculto");
     document.getElementById("fase4").classList.remove("oculto");
 }
+// Exponemos las funciones para que el HTML (los botones onclick) pueda encontrarlas
+window.actualizarModo = actualizarModo;
+window.irFase2 = irFase2;
+window.irFase3 = irFase3;
+window.calcularTorneo = calcularTorneo;
