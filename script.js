@@ -1,3 +1,25 @@
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyCL8G2y5VByGpnPw2AU44s8wpvCPPF-XY8",
+  authDomain: "troundrobin-1dce3.firebaseapp.com",
+  projectId: "troundrobin-1dce3",
+  storageBucket: "troundrobin-1dce3.firebasestorage.app",
+  messagingSenderId: "244337690010",
+  appId: "1:244337690010:web:65267747e9cc8c85bd2623",
+  measurementId: "G-6J5D5PLY5E"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
 let N = 8;
 let nombres = [];
 
@@ -71,7 +93,7 @@ function irFase3() {
     document.getElementById("fase3").classList.remove("oculto");
 }
 
-function calcularTorneo() {
+async function calcularTorneo() {
     let MR = Array.from({length: N}, () => Array(N).fill(0));
     let MR_Cuadrado = Array.from({length: N}, () => Array(N).fill(0));
     let vic_directas = Array(N).fill(0);
@@ -187,3 +209,21 @@ function calcularTorneo() {
     document.getElementById("fase3").classList.add("oculto");
     document.getElementById("fase4").classList.remove("oculto");
 }
+// 4. Armamos el objeto con la información limpia que se va a guardar
+    let datosFinalesNube = {
+        fecha: new Date().toLocaleDateString(),
+        totalParticipantes: N,
+        campeon: nombres[indice_ganador],
+        detallesJugadores: resultadosTorneo // (tu lista con los nombres, puntos y efectividad)
+    };
+
+    // 5. Ordenamos a Firebase que guarde el documento en una colección llamada "torneos"
+    try {
+        await addDoc(collection(db, "torneos"), datosFinalesNube);
+        console.log("¡Guardado en la nube con éxito!");
+    } catch (error) {
+        console.error("Error al guardar: ", error);
+    }
+
+    // ... (Aquí continúa el código que ya tienes para inyectar la tabla en el HTML)
+    document.getElementById("tabla_resultados").innerHTML = htmlSalida;
