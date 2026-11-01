@@ -1,8 +1,35 @@
 let N = 8;
 let nombres = [];
 
+// Función nueva para mostrar el modo dinámicamente conforme escriben el número
+function actualizarModo() {
+    let n = parseInt(document.getElementById("cantidad_N").value);
+    let info = document.getElementById("info_modo");
+
+    if (n < 4 || n > 16 || isNaN(n)) {
+        info.innerHTML = "<span style='color:red;'>¡El límite permitido es de 4 a 16 participantes!</span>";
+        return;
+    }
+
+    if (n >= 4 && n <= 6) {
+        info.innerHTML = "<strong>Modo Pequeño:</strong> Ideal para pruebas rápidas y demostraciones.";
+    } else if (n >= 7 && n <= 9) {
+        info.innerHTML = "<strong>Modo Estándar:</strong> Configuración recomendada. Excelente equilibrio.";
+    } else if (n >= 10 && n <= 16) {
+        let partidos = (n * (n - 1)) / 2;
+        info.innerHTML = `<strong>Modo Formato Liga:</strong> Torneo extenso (${partidos} partidos a ingresar).`;
+    }
+}
+
 function irFase2() {
     N = parseInt(document.getElementById("cantidad_N").value);
+    
+    // Validación de seguridad (Límite duro) por si intentan forzarlo
+    if (N < 4 || N > 16 || isNaN(N)) {
+        alert("Por favor ingresa un número válido de participantes entre 4 y 16.");
+        return;
+    }
+
     let html = "";
     
     for(let i = 0; i < N; i++) {
@@ -14,6 +41,8 @@ function irFase2() {
     document.getElementById("fase1").classList.add("oculto");
     document.getElementById("fase2").classList.remove("oculto");
 }
+
+// (El resto de tus funciones: irFase3 y calcularTorneo se quedan exactamente igual)
 
 function irFase3() {
     nombres = [];
@@ -110,11 +139,15 @@ function calcularTorneo() {
     
     let medallas = ["1er Lugar", "2do Lugar", "3er Lugar"];
     let coloresPodio = ["#ffd700", "#c0c0c0", "#cd7f32"];
+    let imagenesPodio = ["primero.png", "segundo.png", "tercero.png"];
 
     for (let i = 0; i < Math.min(3, N); i++) {
         htmlSalida += `
-            |<div style="background: ${coloresPodio[i]}20; border: 2px solid ${coloresPodio[i]}; border-radius: 10px; padding: 15px 20px; width: 200px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                <h3 style="margin: 0 0 10px 0; color: #333;">${medallas[i]}</h3>
+            <div style="background: ${coloresPodio[i]}20; border: 2px solid ${coloresPodio[i]}; border-radius: 10px; padding: 15px 20px; width: 200px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 10px;">
+                    <img src="${imagenesPodio[i]}" alt="${medallas[i]}" style="width: 50px; height: 50px; object-fit: contain;">
+                    <h3 style="margin: 0; color: #333;">${medallas[i]}</h3>
+                </div>
                 <p style="font-size: 18px; font-weight: bold; margin: 5px 0;">${participantes[i].nombre}</p>
                 <p style="font-size: 14px; color: #555; margin: 0;">Puntaje: <strong>${participantes[i].total}</strong></p>
             </div>
@@ -124,7 +157,7 @@ function calcularTorneo() {
 
     // 6. Título y Tabla completa de estadísticas generales
     htmlSalida += `<div style="margin-top: 30px;">
-        <h3 style="border-bottom: 2px solid #007bff; padding-bottom: 8px; color: #007bff; text-align: center;"> STATS</h3>1|q
+        <h3 style="border-bottom: 2px solid #007bff; padding-bottom: 8px; color: #007bff; text-align: center;"> STATS</h3>
     </div>`;
 
     htmlSalida += `<table>
