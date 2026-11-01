@@ -1,3 +1,4 @@
+// esto es para conectar con Firebase y guardar los resultados del torneo en la nube
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
@@ -13,7 +14,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-
+//ya el proyecto está conectado a Firebase y listo para guardar los resultados del torneo en la nube
 let N = 8;
 let nombres = [];
 
@@ -36,7 +37,7 @@ function actualizarModo() {
         info.innerHTML = `<strong>Modo Formato Liga:</strong> Torneo extenso (${partidos} partidos a ingresar).`;
     }
 }
-
+// Función para pasar a la fase 2, donde se ingresan los nombres de los participantes
 function irFase2() {
     N = parseInt(document.getElementById("cantidad_N").value);
     
@@ -58,8 +59,7 @@ function irFase2() {
     document.getElementById("fase2").classList.remove("oculto");
 }
 
-// (El resto de tus funciones: irFase3 y calcularTorneo se quedan exactamente igual)
-
+// Función para pasar a la fase 3, donde se ingresan los resultados de los partidos
 function irFase3() {
     nombres = [];
     for(let i = 0; i < N; i++) {
@@ -86,8 +86,8 @@ function irFase3() {
     document.getElementById("fase2").classList.add("oculto");
     document.getElementById("fase3").classList.remove("oculto");
 }
-
-async function calcularTorneo() {
+//Función para calcular el torneo y mostrar los resultados finales, además de guardar en Firebase
+async function calcularTorneo() {//asycnc para poder usar await y guardar en Firebase
     let MR = Array.from({length: N}, () => Array(N).fill(0));
     let MR_Cuadrado = Array.from({length: N}, () => Array(N).fill(0));
     let vic_directas = Array(N).fill(0);
@@ -152,7 +152,7 @@ async function calcularTorneo() {
     </div>`;
 
     htmlSalida += `<div style="display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; flex-wrap: wrap;">`;
-    
+    //Podio con colores y medallas
     let medallas = ["1er Lugar", "2do Lugar", "3er Lugar"];
     let coloresPodio = ["#ffd700", "#c0c0c0", "#cd7f32"];
     let imagenesPodio = ["primero.png", "segundo.png", "tercero.png"];
@@ -175,7 +175,7 @@ async function calcularTorneo() {
     htmlSalida += `<div style="margin-top: 30px;">
         <h3 style="border-bottom: 2px solid #007bff; padding-bottom: 8px; color: #007bff; text-align: center;"> STATS</h3>
     </div>`;
-
+// 7. Tabla de resultados finales
     htmlSalida += `<table>
         <tr>
             <th>Posición</th>
