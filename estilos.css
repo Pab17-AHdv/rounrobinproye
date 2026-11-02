@@ -62,17 +62,40 @@ input[type="text"], input[type="number"] {
 }
 
 .partido { 
-    margin-bottom: 10px; 
-    padding: 10px; 
-    background-color: #e9ecef; 
-    border-radius: 5px; 
+    margin-bottom: 15px; 
+    padding: 16px; 
+    background-color: rgba(28, 28, 30, 0.85); /* Fondo oscuro translúcido */
+    border: 1px solid rgba(255, 255, 255, 0.08); /* Borde sutil elegante */
+    border-radius: 16px; 
+    color: #ffffff; /* Texto totalmente visible en blanco */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
+/* Asegurar que las preguntas o textos dentro del partido resalten bien */
+.partido label, 
+.partido span {
+    color: #f5f5f7;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+/* Estilo oscuro para los menús desplegables (select) de la Fase 3 */
 select { 
-    padding: 8px; 
+    padding: 12px; 
     width: 100%; 
-    margin-top: 5px; 
-    border-radius: 4px; 
+    margin-top: 8px; 
+    background-color: #0E0E10; /* Fondo negro para el select */
+    color: #ffffff;            /* Texto blanco */
+    border: 1px solid rgba(255, 255, 255, 0.15); 
+    border-radius: 10px; 
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+select:focus {
+    border-color: #FF7A3D;
+    box-shadow: 0 0 12px rgba(255, 122, 61, 0.4);
 }
 
 .oculto { 
@@ -99,7 +122,7 @@ input[type="text"]:focus {
     border-color: #FF7A3D;
     box-shadow: 0 0 12px rgba(255, 122, 61, 0.4);
 }
-
+/*ya cambiao
 /* Estilo para el botón naranja */
 button {
     display: block;
