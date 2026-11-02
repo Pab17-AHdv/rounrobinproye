@@ -5,6 +5,7 @@ body {
     color: #ffffff; /* Texto blanco para que contraste perfectamente */
 }
 
+
 .contenedor { 
     background: rgba(28, 28, 30, 0.85); /* Gris oscuro translúcido estilo Apple */
     backdrop-filter: blur(16px);
