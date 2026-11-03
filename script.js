@@ -229,3 +229,29 @@ window.actualizarModo = actualizarModo;
 window.irFase2 = irFase2;
 window.irFase3 = irFase3;
 window.calcularTorneo = calcularTorneo;
+
+window.addEventListener('DOMContentLoaded', () => {
+    const gridFragmentado = document.getElementById('gridFragmentado');
+    if (!gridFragmentado) return;
+
+    const tamañoCuadro = 22; // Tamaño de cada pixel cuadrado
+    const columnas = Math.floor(window.innerWidth / tamañoCuadro);
+    const filas = 15; // Altura de la zona de "desgarre"
+
+    for (let f = 0; f < filas; f++) {
+        for (let c = 0; c < columnas; c++) {
+            const cuadro = document.createElement('div');
+            cuadro.classList.add('bloque-pixel');
+
+            // Lógica matemática que tenías para crear el efecto "roto" o "arrancado"
+            const densidadFila = (f / filas) * 100;
+            const aleatorio = Math.random() * 100;
+
+            if (aleatorio > (100 - densidadFila + 20) || f === filas - 1) {
+                cuadro.classList.add('naranja');
+            }
+
+            gridFragmentado.appendChild(cuadro);
+        }
+    }
+});
