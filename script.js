@@ -147,8 +147,8 @@ async function calcularTorneo() {//asycnc para poder usar await y guardar en Fir
 
     // 5. Construir el HTML visual: Podio Top 3 primero
     let htmlSalida = `<div style="text-align: center; margin-bottom: 25px;">
-        <h2 style="color: #333; margin-bottom: 5px;">PODIO DEL TORNEO</h2>
-        <p style="color: #666; font-size: 14px;">Basado en el puntaje total de desempate</p>
+        <h2 style="color: #888; margin-bottom: 5px;">PODIO DEL TORNEO</h2>
+        <p style="color: #888; font-size: 14px;">Basado en el puntaje total de desempate</p>
     </div>`;
 
     htmlSalida += `<div style="display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; flex-wrap: wrap;">`;
@@ -162,10 +162,10 @@ async function calcularTorneo() {//asycnc para poder usar await y guardar en Fir
             <div style="background: ${coloresPodio[i]}20; border: 2px solid ${coloresPodio[i]}; border-radius: 10px; padding: 15px 20px; width: 200px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
                 <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 10px;">
                     <img src="${imagenesPodio[i]}" alt="${medallas[i]}" style="width: 50px; height: 50px; object-fit: contain;">
-                    <h3 style="margin: 0; color: #333;">${medallas[i]}</h3>
+                    <h3 style="margin: 0; color: #ffffff;">${medallas[i]}</h3>
                 </div>
                 <p style="font-size: 18px; font-weight: bold; margin: 5px 0;">${participantes[i].nombre}</p>
-                <p style="font-size: 14px; color: #555; margin: 0;">Puntaje: <strong>${participantes[i].total}</strong></p>
+                <p style="font-size: 14px; color: #ffffff; margin: 0;">Puntaje: <strong>${participantes[i].total}</strong></p>
             </div>
         `;
     }
