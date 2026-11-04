@@ -13,19 +13,25 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.08); /* Borde delgado y elegante */
     padding: 40px; 
     border-radius: 24px; /* Bordes más redondeados como la imagen */
-    max-width: 440px; 
+    max-width: 650px; 
     width: 90%;
     margin: 40px auto; 
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), 0 0 25px rgba(255, 122, 61, 0.1); /* Sombra profunda con un leve brillo naranja */
+    box-shadow: 0 25px 50px rgba(39, 37, 37, 0.7), 0 0 25px rgba(255, 122, 61, 0.1); /* Sombra profunda con un leve brillo naranja */
     color: #f5f5f7;
     position: relative;
     z-index: 1;
+}
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 15px;
+    border-radius: 12px;
 }
 
 table { 
     width: 100%; 
     border-collapse: collapse; 
-    margin-top: 15px; 
+    white-space: nowrap; /* Evita que los textos se partan feo */
 }
 
 th, td { 
