@@ -173,7 +173,7 @@ async function calcularTorneo() {//asycnc para poder usar await y guardar en Fir
 
     // 6. Título y Tabla completa de estadísticas generales
     htmlSalida += `<div style="margin-top: 30px;">
-        <h3 style="border-bottom: 2px solid #007bff; padding-bottom: 8px; color: #007bff; text-align: center;"> STATS</h3>
+        <h3 style="border-bottom: 2px solid #f79e4b; padding-bottom: 8px; color: #f79e4b; text-align: center;"> STATS</h3>
     </div>`;
 // 7. Tabla de resultados finales
     htmlSalida += `<table>
